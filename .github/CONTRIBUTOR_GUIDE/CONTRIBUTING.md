@@ -167,3 +167,44 @@ These templates are automatically populated when you create a new issue or PR.
 - [Proxmox Documentation](https://pve.proxmox.com/pve-docs/)
 - [GitHub Documentation on Pull Requests](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)
 - [Open Source Guides: Starting an Open Source Project](https://opensource.guide/)
+
+
+--
+
+## Creating New Scripts
+
+When creating new scripts for the ProxmoxVE Helper Scripts repository, we recommend using **Visual Studio Code** (VS Code) for a smooth development experience. Follow these steps and guidelines to ensure your contributions meet the project’s standards.
+
+### Template Usage
+
+Start by using the following scripts as templates for your new script:
+- **`AppName.sh`**  
+  This is the main script that handles the high-level flow and calls the necessary functions. It serves as the entry point for the process.
+
+- **`AppName-install.sh`**  
+  This script is typically used for the installation process within the container, handling the actual setup of software and services.
+
+These templates help ensure consistency across all scripts and make it easier for contributors to follow the project's structure.
+
+### Visual Studio Code Setup
+
+To ensure high code quality and to avoid common mistakes, it's recommended to use the following Visual Studio Code extensions:
+
+1. **Shell Syntax**  
+   [Shell Syntax Extension](https://marketplace.visualstudio.com/items?itemName=bmalehorn.shell-syntax)  
+   This extension adds syntax highlighting and IntelliSense for shell scripts, making it easier to write and read your Bash scripts.
+
+2. **ShellCheck**  
+   [ShellCheck Extension](https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck)  
+   ShellCheck is a static analysis tool for shell scripts. It helps identify common errors, potential issues, and improvements in your scripts. It runs automatically as you write your script and provides useful suggestions.
+
+3. **Shell Format**  
+   [Shell Format Extension](https://marketplace.visualstudio.com/items?itemName=foxundermoon.shell-format)  
+   This extension automatically formats your shell scripts according to best practices, ensuring clean, readable code.
+
+### Script Modification
+
+When creating a new script, you’ll need to adjust the call in the **`AppName.sh`** script. Specifically, the URL used in the following command must point to your **fork** of the repository, not the main `community-scripts/ProxmoxVE` URL:
+
+```bash
+bash -c "$(wget -qLO - https://github.com/YOUR_FORK_URL/raw/main/ct/AppName.sh)"
