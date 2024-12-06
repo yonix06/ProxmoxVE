@@ -20,11 +20,12 @@ Before contributing, please ensure that you have the following setup:
 
 ---
 
-## Structure of Installation Scripts (ct/AppName.sh)
+# 🚀 Structure of Installation Scripts (ct/AppName.sh)
 
 All installation scripts should follow this standard structure:
 
-### 1. File Header
+## 1. 📝 File Header
+
 ```bash
 #!/usr/bin/env bash
 source <(curl -s https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/misc/build.func)
@@ -34,10 +35,12 @@ source <(curl -s https://raw.githubusercontent.com/community-scripts/ProxmoxVE/m
 # Source: [SOURCE_URL]
 ```
 
-- You only need to add here your username & the source_url (website of the AppName-Project or github) 
-- if this an existing Script set after the current Author an "| Co-Author [YourUserName]" 
+> **Note**: 
+> - Add your username and source URL
+> - For existing scripts, add "| Co-Author [YourUserName]" after the current author
 
-### 2. App Default Values
+## 2. 🔧 App Default Values
+
 ```bash
 # App Default Values
 APP="[APP_NAME]"
@@ -50,29 +53,30 @@ var_version="[VERSION]"
 var_unprivileged="[UNPRIVILEGED]"
 ```
 
-=> You need here to increase all values.
-An Special Value is missing in default, because its not needed in every script and need to remove before create an PR:
-=> var_verbose="yes|no" - that enable the verbose mode, and you can see all outputs of the Script.
+### Value Declarations 📊
 
-Declaration of values:
-- APP => Is the name of the application, must match the ct\AppName.sh
-- TAGS => These are tags that are displayed in Proxmox (colored dots). Do not use too many!
-- var_cpu => Number of used CPU-Cores
-- var_ram => Number of used RAM in MB
-- var_disk => Number of hard disk capacities used in GB
-- var_os => Operating system (alpine | debian | ubuntu)
-- var_version => Version of OS (3.20 | 11;12 | 20.04, 22.04, 24.04, 24.10)
-- var_unprivileged => 1 = UNPRIVILEGED LXC Container | 0 = PRIVILEGED LXC Container
+| Variable | Description | Notes |
+|----------|-------------|-------|
+| `APP` | Application name | Must match ct\AppName.sh |
+| `TAGS` | Proxmox display tags | Limit the number |
+| `var_cpu` | CPU cores | Number of cores |
+| `var_ram` | RAM | In MB |
+| `var_disk` | Disk capacity | In GB |
+| `var_os` | Operating system | alpine, debian, ubuntu |
+| `var_version` | OS version | e.g., 3.20, 11, 12, 20.04 |
+| `var_unprivileged` | Container type | 1 = Unprivileged, 0 = Privileged |
 
-=> Following Values are default by build.func:
-- TAGS="community-script" (is default, not need to add this, only new TAGS)
-- var_cpu="1"
-- var_ram="1024"
-- var_disk="4"
-- var_unprivileged="1"
-- var_verbose="no"
+### Default Values 🔨
 
-Example:
+- `TAGS="community-script"` (default)
+- `var_cpu="1"`
+- `var_ram="1024"`
+- `var_disk="4"`
+- `var_unprivileged="1"`
+- `var_verbose="no"`
+
+#### Example 🌟
+
 ```bash
 # App Default Values
 APP="Google"
@@ -84,19 +88,22 @@ var_os="debian"
 var_version="12"
 var_unprivileged="0"
 ```
-=> That Create an privileged LXC with name "google" (ct\google.sh) with 2 CPU Cores, 4096 MB RAM, 10 GB HDD Space, in Debian 12.
 
-### 3. App Output & Base Settings
+> Creates a privileged LXC named "google" with 2 CPU cores, 4096 MB RAM, 10 GB disk, on Debian 12
+
+## 3. 📋 App Output & Base Settings
+
 ```bash
 # App Output & Base Settings
 header_info "$APP"
 base_settings
 ```
 
-- header_info is an function created in build.func and set the "APP" Value into an ASCII-Header.
-- base_settings are used to overwrite the variable values of 2. or to accept all other default values.
+- `header_info`: Generates ASCII header for APP
+- `base_settings`: Allows overwriting variable values
 
-### 4. Core
+## 4. 🛠 Core Functions
+
 ```bash
 # Core
 variables
@@ -104,11 +111,12 @@ color
 catch_errors
 ```
 
-- variables is an build.func function that This function processes the input and prepares variables for further use in the script.
-- color is an build.func function that sets all icons, colors and formattings in the scripts.
-- catch_errors is an build.func function that enables error handling in the script by setting options and defining a trap for the ERR signal.
+- `variables`: Processes input and prepares variables
+- `color`: Sets icons, colors, and formatting
+- `catch_errors`: Enables error handling
 
-### 5. Update-Script Part
+## 5. 🔄 Update-Script Part
+
 ```bash
 function update_script() {
     header_info
@@ -119,13 +127,12 @@ function update_script() {
 }
 ```
 
-- header_info called the ASCII-Generated AppName with every call of the function
-- check_container_storage check the available storage and give output if it to less
-- check_container_resources check the ressources (var_cpu / var_ram) if it to less and give user Output
+- `header_info`: Regenerates ASCII AppName
+- `check_container_storage`: Checks available storage
+- `check_container_resources`: Validates CPU/RAM resources
 
-Then comes the whole update function of the Script himself.
+## 6. 🏁 Script-End
 
-### 6. Script-End
 ```bash
 start
 build_container
@@ -137,17 +144,15 @@ echo -e "${INFO}${YW} Access it using the following URL:${CL}"
 echo -e "${TAB}${GATEWAY}${BGN}http://${IP}:[PORT]${CL}"
 ```
 
-- "start" is an build.func function to start the Whiptail Dialogue for Update or Create LXC
-- "build_container" is an build.func function, this function collects user settings and integrates all the collected information.
-- "description" is an build.func function, sets the description of the LXC container
- 
+- `start`: Launches Whiptail dialogue
+- `build_container`: Collects and integrates user settings
+- `description`: Sets LXC container description
 
-## Structure of Installation Scripts (install/AppName-install.sh)
+I'll convert the remaining document to a GitHub-flavored Markdown with emojis and improved formatting:
 
-All installation scripts should follow this standard structure:
+# 🛠 Structure of Installation Scripts (install/AppName-install.sh)
 
-### 1. File Header
-Every script should source the functions file and run these initial checks:
+## 1. 📄 File Header
 
 ```bash
 #!/usr/bin/env bash
@@ -156,10 +161,13 @@ Every script should source the functions file and run these initial checks:
 # Author: [YourUserName]
 # License: MIT | https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
 ```
-- You only need to add here your username 
-- if this an existing Script set after the current Author an "| Co-Author [YourUserName]" 
 
-### 2. Import Functions und Setup
+> **Notes**: 
+> - Add your username
+> - For existing scripts, add "| Co-Author [YourUserName]"
+
+## 2. 🔌 Import Functions and Setup
+
 ```bash
 source /dev/stdin <<< "$FUNCTIONS_FILE_PATH"
 color
@@ -170,8 +178,7 @@ network_check
 update_os
 ```
 
-### 3. Standard Dependencies
-Common base dependencies should be installed first:
+## 3. 📦 Standard Dependencies
 
 ```bash
 msg_info "Installing Dependencies"
@@ -179,10 +186,9 @@ $STD apt-get install -y   curl   sudo   mc
 msg_ok "Installed Dependencies"
 ```
 
-### 4. File Writing Conventions
+## 4. 📝 File Writing Conventions
 
-#### Writing Config Files
-Use heredoc (`cat <<EOF`) for writing configuration files:
+### Writing Config Files 🔧
 
 ```bash
 cat <<EOF >/etc/systemd/system/${APPLICATION}.service
@@ -200,8 +206,7 @@ WantedBy=multi-user.target
 EOF
 ```
 
-#### Writing Environment Files
-Use heredoc for environment files, with proper quoting:
+### Writing Environment Files 🌍
 
 ```bash
 cat <<EOF >/path/to/.env
@@ -211,15 +216,13 @@ DB_NAME="${DB_NAME}"
 EOF
 ```
 
-### 5. Service Management
-Standard way to enable and start services:
+## 5. 🚦 Service Management
 
 ```bash
 systemctl enable -q --now service.service
-``` 
+```
 
-### 6. Cleanup Section
-Every script should end with cleanup:
+## 6. 🧹 Cleanup Section
 
 ```bash
 msg_info "Cleaning up"
@@ -228,8 +231,7 @@ $STD apt-get -y autoclean
 msg_ok "Cleaned"
 ```
 
-### 7. Progress Messages
-Use standard message functions for consistent output:
+## 7. 📢 Progress Messages
 
 ```bash
 msg_info "Starting task"
@@ -237,15 +239,13 @@ $STD some_command
 msg_ok "Task completed"
 ```
 
-### 8. Version Tracking
-When installing specific versions, store the version number:
+## 8. 🏷️ Version Tracking
 
 ```bash
 echo "${RELEASE}" >"/opt/${APPLICATION}_version.txt"
 ```
 
-### 9. Credentials Management
-Store credentials in a consistent location:
+## 9. 🔐 Credentials Management
 
 ```bash
 {
@@ -255,21 +255,19 @@ Store credentials in a consistent location:
 } >> ~/application.creds
 ```
 
-### 10. Directory Structure
-Use consistent paths for applications:
+## 10. 📂 Directory Structure
+
 - Application files: `/opt/application_name/`
 - Configuration files: `/etc/application_name/`
 - Data files: `/var/lib/application_name/`
 
-### 11. Error Handling
-Use the standard error handling function:
+## 11. 🚨 Error Handling
 
 ```bash
 catch_errors
 ```
 
-### 12. Final Setup
-Every script should end with:
+## 12. 🏁 Final Setup
 
 ```bash
 motd_ssh
@@ -278,63 +276,55 @@ customize
 
 ---
 
-## Best Practices
+## 📋 Best Practices
 
-1. Use `$STD` for commands that should have their output suppressed.
-2. Use consistent variable naming (uppercase for global variables).
-3. Always quote variables that might contain spaces.
-4. Use `-q` flag for quiet operation where available.
-5. Use consistent indentation (2 spaces).
-6. Include cleanup sections to remove temporary files and packages.
-7. Use descriptive message strings in msg_info/msg_ok functions.
-
----
-
-## Building Your Own Scripts
-
-The best way to build your own scripts is to start with [our template script](https://github.com/community-scripts/ProxmoxVE/blob/main/docs/templates/example-install.sh) and then modify it to your needs.
+1. Use `$STD` for suppressed command output
+2. Use uppercase for global variables
+3. Quote variables with potential spaces
+4. Use `-q` for quiet operations
+5. Use 2-space indentation
+6. Include cleanup sections
+7. Use descriptive message strings
 
 ---
 
-## Contribution Process
+## 🚀 Building Your Own Scripts
+
+Start with the [template script](https://github.com/community-scripts/ProxmoxVE/blob/main/docs/templates/example-install.sh)
+
+---
+
+## 🤝 Contribution Process
 
 ### 1. Fork the Repository
-Fork the repository to your own GitHub account to start contributing.
+Fork to your GitHub account
 
-### 2. Clone the Forked Repository
-Clone your fork to your local machine using:
-
+### 2. Clone Your Fork
 ```bash
 git clone https://github.com/YOUR_USERNAME/community-scripts.git
 ```
 
 ### 3. Create a New Branch
-Before making changes, create a new branch for your feature or fix:
-
 ```bash
 git checkout -b your-feature-branch
 ```
 
-### 4. Commit Your Changes
-Once you’ve made the necessary changes, commit them:
-
+### 4. Commit Changes
 ```bash
 git commit -m "Your commit message"
 ```
 
 ### 5. Push to Your Fork
-Push the changes to your forked repository:
-
 ```bash
 git push origin your-feature-branch
 ```
 
 ### 6. Create a Pull Request
-Open a pull request from your feature branch to the `main` branch of the original repository. Please ensure that your pull request follows the formatting and guidelines mentioned above.
+Open a PR from your feature branch to the main repository branch
 
 ---
 
-## Wiki Pages
+## 📚 Wiki Pages
 
 - [Contributing](https://github.com/community-scripts/ProxmoxVE/wiki/Contributing)
 - [Installation Guide](https://github.com/community-scripts/ProxmoxVE/wiki/Installation-Guide)
