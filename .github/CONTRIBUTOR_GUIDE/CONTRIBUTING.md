@@ -148,7 +148,7 @@ echo -e "${TAB}${GATEWAY}${BGN}http://${IP}:[PORT]${CL}"
 - `build_container`: Collects and integrates user settings
 - `description`: Sets LXC container description
 
-I'll convert the remaining document to a GitHub-flavored Markdown with emojis and improved formatting:
+---
 
 # 🛠 Structure of Installation Scripts (install/AppName-install.sh)
 
@@ -231,12 +231,14 @@ $STD apt-get -y autoclean
 msg_ok "Cleaned"
 ```
 
+
+
 ## 7. 📢 Progress Messages
 
 ```bash
-msg_info "Starting task"
+msg_info "Setup ${APPLICATION}"
 $STD some_command
-msg_ok "Task completed"
+msg_ok "Setup ${APPLICATION}"
 ```
 
 ## 8. 🏷️ Version Tracking
@@ -301,7 +303,7 @@ Fork to your GitHub account
 
 ### 2. Clone Your Fork
 ```bash
-git clone https://github.com/YOUR_USERNAME/community-scripts.git
+git clone https://github.com/community-scripts/ProxmoxVE
 ```
 
 ### 3. Create a New Branch
@@ -309,7 +311,10 @@ git clone https://github.com/YOUR_USERNAME/community-scripts.git
 git checkout -b your-feature-branch
 ```
 
-### 4. Commit Changes
+### 4. Change Paths in build.func and install.func
+you need to switch "community-scripts/ProxmoxVE" to "yourUserName/ForkName" 
+
+### 4. Commit Changes (without build.func and install.func!)
 ```bash
 git commit -m "Your commit message"
 ```
