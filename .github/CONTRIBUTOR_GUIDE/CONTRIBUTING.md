@@ -15,7 +15,7 @@ Before contributing, please ensure that you have the following setup:
    - [Shell Format](https://marketplace.visualstudio.com/items?itemName=foxundermoon.shell-format)
 
 ### Important Notes
-- Use `AppName.sh` and `AppName-install.sh` as templates when creating new scripts.
+- Use [AppName.sh]((https://github.com/community-scripts/ProxmoxVE/blob/contributor_guide/.github/CONTRIBUTOR_GUIDE/ct/AppName.sh)) and [AppName-install.sh]((https://github.com/community-scripts/ProxmoxVE/blob/contributor_guide/.github/CONTRIBUTOR_GUIDE/install/AppName-install.sh)) as templates when creating new scripts.
 - The call to `community-scripts/ProxmoxVE` should be adjusted to reflect the correct fork URL.
 
 ---
