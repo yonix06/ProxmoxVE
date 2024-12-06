@@ -301,9 +301,9 @@ Start with the [template script](https://github.com/community-scripts/ProxmoxVE/
 ### 1. Fork the Repository
 Fork to your GitHub account
 
-### 2. Clone Your Fork
+### 2. Clone Your Fork on your Pc 
 ```bash
-git clone https://github.com/community-scripts/ProxmoxVE
+git clone https://github.com/yourUserName/ForkName
 ```
 
 ### 3. Create a New Branch
