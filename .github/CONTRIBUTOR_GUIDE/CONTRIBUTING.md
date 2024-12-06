@@ -329,8 +329,8 @@ Open a PR from your feature branch to the main repository branch
 
 ---
 
-## 📚 Wiki Pages
+## 📚 Pages
 
-- [Contributing](https://github.com/community-scripts/ProxmoxVE/wiki/Contributing)
-- [Installation Guide](https://github.com/community-scripts/ProxmoxVE/wiki/Installation-Guide)
-- [Script Templates](https://github.com/community-scripts/ProxmoxVE/wiki/Script-Templates)
+- [Function-Overview](https://github.com/community-scripts/ProxmoxVE/wiki/Function_Overview)
+- [CT Template: AppName.sh](https://github.com/community-scripts/ProxmoxVE/blob/contributor_guide/.github/CONTRIBUTOR_GUIDE/ct/AppName.sh)
+- [Install Template: AppName-install.sh](https://github.com/community-scripts/ProxmoxVE/blob/contributor_guide/.github/CONTRIBUTOR_GUIDE/install/AppName-install.sh)
