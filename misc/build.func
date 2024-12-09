@@ -627,7 +627,7 @@ install_script() {
         ;;
     esac
   done
-
+}
 
 check_container_resources() {
   # Check actual RAM & Cores
