@@ -587,46 +587,46 @@ install_script() {
   NEXTID=$(pvesh get /cluster/nextid)
   timezone=$(cat /etc/timezone)
   header_info
-while true; do
-  CHOICE=$(whiptail --backtitle "Proxmox VE Helper Scripts" --title "SETTINGS" --menu "Choose an option:" \
-    15 60 4 \
-    "1" "Yes" \
-    "2" "Yes (with verbose)" \
-    "3" "Advanced Settings" \
-    "4" "Exit" 3>&1 1>&2 2>&3)
+  while true; do
+    CHOICE=$(whiptail --backtitle "Proxmox VE Helper Scripts" --title "SETTINGS" --menu "Choose an option:" \
+      15 60 4 \
+      "1" "Yes" \
+      "2" "Yes (with verbose)" \
+      "3" "Advanced Settings" \
+      "4" "Exit" 3>&1 1>&2 2>&3)
 
-  case $CHOICE in
-    1)
-      header_info
-      echo -e "${DEFAULT}${BOLD}${BL}Using Default Settings${CL}"
-      VERBOSE="no"
-      base_settings
-      echo_default
-      break
-      ;;
-    2)
-      header_info
-      echo -e "${DEFAULT}${BOLD}${BL}Using Default Settings (Verbose)${CL}"
-      VERBOSE="yes"
-      base_settings
-      echo_default
-      break
-      ;;
-    3)
-      header_info
-      echo -e "${ADVANCED}${BOLD}${RD}Using Advanced Settings${CL}"
-      advanced_settings
-      break
-      ;;
-    4)
-      echo -e "${CROSS}${RD} Exiting.${CL}"
-      exit 0
-      ;;
-    *)
-      echo -e "${CROSS}${RD} Invalid option, please try again.${CL}"
-      ;;
-  esac
-done
+    case $CHOICE in
+      1)
+        header_info
+        echo -e "${DEFAULT}${BOLD}${BL}Using Default Settings${CL}"
+        VERBOSE="no"
+        base_settings
+        echo_default
+        break
+        ;;
+      2)
+        header_info
+        echo -e "${DEFAULT}${BOLD}${BL}Using Default Settings (Verbose)${CL}"
+        VERBOSE="yes"
+        base_settings
+        echo_default
+        break
+        ;;
+      3)
+        header_info
+        echo -e "${ADVANCED}${BOLD}${RD}Using Advanced Settings${CL}"
+        advanced_settings
+        break
+        ;;
+      4)
+        echo -e "${CROSS}${RD} Exiting.${CL}"
+        exit 0
+        ;;
+      *)
+        echo -e "${CROSS}${RD} Invalid option, please try again.${CL}"
+        ;;
+    esac
+  done
 
 
 check_container_resources() {
