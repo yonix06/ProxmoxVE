@@ -588,16 +588,12 @@ install_script() {
   timezone=$(cat /etc/timezone)
   header_info
   while true; do
-    CHOICE=$(whiptail --backtitle "\e[1;34mProxmox VE Helper Scripts\e[0m" \
-    --title "\e[1;32mSETTINGS\e[0m" \
-    --menu "\e[1;33mChoose an option:\e[0m" \
-    12 50 4 \
-    "\e[1;36m1\e[0m" "Default Settings" \
-    "\e[1;36m2\e[0m" "Default Settings (with verbose)" \
-    "\e[1;36m3\e[0m" "Advanced Settings" \
-    "\e[1;31m4\e[0m" "Exit" \
-    --nocancel \
-    --default-item "1" 3>&1 1>&2 2>&3)
+    CHOICE=$(whiptail --backtitle "Proxmox VE Helper Scripts" --title "SETTINGS" --menu "Choose an option:" \
+      12 50 4 \
+      "1" "Default Settings" \
+      "2" "Default Settings (with verbose)" \
+      "3" "Advanced Settings" \
+      "4" "Exit" --nocancel --default-item "1" 3>&1 1>&2 2>&3)
 
     if [ $? -ne 0 ]; then
       echo -e "${CROSS}${RD} Menu canceled. Exiting.${CL}"
