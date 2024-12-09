@@ -7,7 +7,7 @@ source <(curl -s https://raw.githubusercontent.com/community-scripts/ProxmoxVE/d
 
 # App Default Values
 APP="Tdarr"
-var_tags="*arr"
+var_tags="arr"
 var_cpu="2"
 var_ram="2048"
 var_disk="4"
