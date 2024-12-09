@@ -17,6 +17,7 @@ color() {
   CL=$(echo "\033[m")
   BFR="\\r\\033[K"
   BOLD=$(echo "\033[1m")
+  HOLD=" "
   TAB="  "
   
   # System
