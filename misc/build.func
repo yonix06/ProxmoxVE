@@ -604,7 +604,8 @@ install_script() {
       1)
         header_info
         echo -e "${DEFAULT}${BOLD}${BL}Using Default Settings${CL}"
-        base_settings
+        VERB="no"
+        base_settings "$VERB"  
         echo_default
         break
         ;;
