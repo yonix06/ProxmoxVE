@@ -219,7 +219,7 @@ motd_ssh() {
   if [ -f "$MOTD_FILE" ]; then
     # Start MOTD with application info and link
     echo -e "\n${BOLD}${APPLICATION} LXC Container${CL}" > "$MOTD_FILE"
-    echo -e "${TAB}${GATEWAY}${YW} Provided by: ${GN}community-scripts ORG ${YW}| Project: ${GN}ProxmoxVE ${YW}| GitHub: ${GN}https://github.com/community-scripts/ProxmoxVE${CL}\n" >> "$MOTD_FILE"
+    echo -e "${TAB}${GATEWAY}${YW} Provided by: ${GN}community-scripts ORG ${YW}| GitHub: ${GN}https://github.com/community-scripts/ProxmoxVE${CL}\n" >> "$MOTD_FILE"
 
     # Add system information with icons
     echo -e "${TAB}${OS}${YW} OS: ${GN}${OS_NAME} ${OS_VERSION}${CL}" >> "$MOTD_FILE"
