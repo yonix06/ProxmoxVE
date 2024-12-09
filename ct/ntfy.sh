@@ -7,7 +7,7 @@ source <(curl -s https://raw.githubusercontent.com/community-scripts/ProxmoxVE/d
 
 # App Default Values
 APP="ntfy"
-TAGS="notification"
+var_tags="notification"
 var_cpu="1"
 var_ram="512"
 var_disk="2"

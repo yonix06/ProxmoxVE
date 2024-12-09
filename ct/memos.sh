@@ -7,7 +7,7 @@ source <(curl -s https://raw.githubusercontent.com/community-scripts/ProxmoxVE/d
 
 # App Default Values
 APP="Memos"
-TAGS="notes"
+var_tags="notes"
 var_cpu="2"
 var_ram="2048"
 var_disk="7"
@@ -47,7 +47,7 @@ function update_script() {
   mkdir -p /opt/memos/server/dist
   cp -r web/dist/* /opt/memos/server/dist/
   cp -r web/dist/* /opt/memos/server/router/frontend/dist/
-  go build -o /opt/memos/memos -tags=embed bin/memos/main.go &>/dev/null
+  go build -o /opt/memos/memos -var_tags=embed bin/memos/main.go &>/dev/null
   systemctl start memos
   msg_ok "Updated $APP"
   exit

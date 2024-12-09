@@ -7,7 +7,7 @@ source <(curl -s https://raw.githubusercontent.com/community-scripts/ProxmoxVE/d
 
 # App Default Values
 APP="iVentoy"
-TAGS="pxe-tool"
+var_tags="pxe-tool"
 var_disk="2"
 var_cpu="1"
 var_ram="512"

@@ -7,7 +7,7 @@ source <(curl -s https://raw.githubusercontent.com/community-scripts/ProxmoxVE/d
 
 # App Default Values
 APP="Wavelog"
-TAGS="radio-logging"
+var_tags="radio-logging"
 var_cpu="1"
 var_ram="512"
 var_disk="2"

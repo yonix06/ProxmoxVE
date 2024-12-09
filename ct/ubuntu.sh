@@ -6,9 +6,8 @@ source <(curl -s https://raw.githubusercontent.com/community-scripts/ProxmoxVE/d
 # Source: https://ubuntu.com/
 
 # App Default Values
-echo -e "Loading..."
 APP="Ubuntu"
-TAGS="os"
+var_tags="os"
 var_cpu="1"
 var_ram="512"
 var_disk="2"

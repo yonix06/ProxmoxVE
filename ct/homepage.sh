@@ -7,7 +7,7 @@ source <(curl -s https://raw.githubusercontent.com/community-scripts/ProxmoxVE/d
 
 # App Default Values
 APP="Homepage"
-TAGS="dashboard"
+var_tags="dashboard"
 var_cpu="2"
 var_ram="1024"
 var_disk="3"
