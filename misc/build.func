@@ -590,8 +590,8 @@ install_script() {
   while true; do
     CHOICE=$(whiptail --backtitle "Proxmox VE Helper Scripts" --title "SETTINGS" --menu "Choose an option:" \
       15 60 4 \
-      "1" "Yes" \
-      "2" "Yes (with verbose)" \
+      "1" "Default Settings" \
+      "2" "Default Settings (with verbose)" \
       "3" "Advanced Settings" \
       "4" "Exit" 3>&1 1>&2 2>&3)
 
@@ -599,7 +599,7 @@ install_script() {
       1)
         header_info
         echo -e "${DEFAULT}${BOLD}${BL}Using Default Settings${CL}"
-        VERBOSE="no"
+        VERB="no"
         base_settings
         echo_default
         break
@@ -607,7 +607,7 @@ install_script() {
       2)
         header_info
         echo -e "${DEFAULT}${BOLD}${BL}Using Default Settings (Verbose)${CL}"
-        VERBOSE="yes"
+        VERB="yes"
         base_settings
         echo_default
         break
