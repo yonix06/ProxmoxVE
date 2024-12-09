@@ -599,7 +599,7 @@ install_script() {
       echo -e "${CROSS}${RD} Menu canceled. Exiting.${CL}"
       exit 1
     fi
-    
+
     case $CHOICE in
       1)
         header_info
