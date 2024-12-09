@@ -185,7 +185,7 @@ base_settings() {
   DISK_SIZE="4"
   CORE_COUNT="1"
   RAM_SIZE="1024"
-  VERBOSE="no"
+  VERBOSE="${1:-no}"
   PW=""
   CT_ID=$NEXTID
   HN=$NSAPP
@@ -604,7 +604,6 @@ install_script() {
       1)
         header_info
         echo -e "${DEFAULT}${BOLD}${BL}Using Default Settings${CL}"
-        VERB="no"
         base_settings
         echo_default
         break
@@ -613,7 +612,7 @@ install_script() {
         header_info
         echo -e "${DEFAULT}${BOLD}${BL}Using Default Settings (${SEARCH} Verbose)${CL}"
         VERB="yes"
-        base_settings
+        base_settings "$VERB"  
         echo_default
         break
         ;;
