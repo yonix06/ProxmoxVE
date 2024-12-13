@@ -24,10 +24,10 @@ base_settings
 variables
 color
 catch_errors
-verb_ip6
 
 function update_script() {
     header_info
+    verb
     check_container_storage
     check_container_resources
     if [[ ! -d /opt/nextpvr ]]; then
