@@ -24,6 +24,7 @@ base_settings
 variables
 color
 catch_errors
+verb_ip6
 
 function update_script() {
     header_info
@@ -38,8 +39,8 @@ function update_script() {
     msg_ok "Stopped ${APP}"
 
     msg_info "Updating LXC packages"
-    apt-get update &>/dev/null
-    apt-get -y upgrade &>/dev/null
+    $STD  apt-get update
+    $STD apt-get -y upgrade
     msg_ok "Updated LXC packages"
 
     msg_info "Updating ${APP}"
