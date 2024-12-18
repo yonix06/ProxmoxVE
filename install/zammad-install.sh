@@ -20,12 +20,14 @@ $STD apt-get install -y \
   sudo \
   gpg \
   wget \
-  nginx
+  nginx \
+  apt-transport-https \
+  gnupg \
 msg_ok "Installed Dependencies"
 
 msg_info "Setting up Elasticsearch"
-echo "deb [signed-by=/etc/apt/trusted.gpg.d/elasticsearch.gpg] https://artifacts.elastic.co/packages/7.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-7.x.list
 curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+echo "deb [signed-by=/etc/apt/trusted.gpg.d/elasticsearch.gpg] https://artifacts.elastic.co/packages/7.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-7.x.list
 $STD apt-get update
 $STD apt-get -y install elasticsearch
 echo "-Xms2g" >>/etc/elasticsearch/jvm.options
