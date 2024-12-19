@@ -43,6 +43,7 @@ msg_ok "Installed Dependencies"
 msg_info "Setup Apache Tomcat"
 RELEASE=$(wget -qO- https://dlcdn.apache.org/tomcat/tomcat-9/ | grep -oP '(?<=href=")v[^"/]+(?=/")' | sed 's/^v//')
 mkdir -p /opt/apache-guacamole/tomcat9
+mkdir -p /opt/apache-guacamole/server
 wget -qO- "https://dlcdn.apache.org/tomcat/tomcat-9/v${RELEASE}/bin/apache-tomcat-${RELEASE}.tar.gz" | tar -xz -C /opt/apache-guacamole/tomcat9 --strip-components=1
 useradd -r -d /opt/apache-guacamole/tomcat9 -s /bin/false tomcat
 chown -R tomcat: /opt/apache-guacamole/tomcat9
@@ -53,8 +54,8 @@ msg_ok "Setup Apache Tomcat"
 msg_info "Setup Apache Guacamole"
 mkdir -p /etc/guacamole/{extensions,lib}
 RELEASE_SERVER=$(curl -sL https://api.github.com/repos/apache/guacamole-server/tags | jq -r '.[0].name')
-wget -qO- https://api.github.com/repos/apache/guacamole-server/tarball/refs/tags/${RELEASE_SERVER} | tar -xz -C /opt/apache-guacamole --transform "s/.*\//apache-guacamole-server-${RELEASE_SERVER}/"
-cd /opt/apache-guacamole/apache-guacamole-server-${RELEASE_SERVER}
+wget -qO- https://api.github.com/repos/apache/guacamole-server/tarball/refs/tags/${RELEASE_SERVER} | tar -xz --strip-components=1 -C /opt/apache-guacamole/server
+cd /opt/apache-guacamole/server
 $STD autoreconf -fi
 $STD ./configure --with-init-dir=/etc/init.d --enable-allow-freerdp-snapshots
 $STD make
