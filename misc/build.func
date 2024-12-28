@@ -173,10 +173,16 @@ header_info() {
     
     mkdir -p /tmp/figlet
     tar -xf "$temp_dir/figlet.tar.xz" -C /tmp/figlet --strip-components=1
-    chmod +x /tmp/figlet/figlet
+    
+    # Search for the figlet executable in the extracted folder
+    figlet_path=$(find /tmp/figlet -name 'figlet' -type f)
+    
+    if [ -n "$figlet_path" ]; then
+      chmod +x "$figlet_path"
 
-    if [ ! -e /usr/local/bin/figlet ]; then
-      mv /tmp/figlet/figlet /usr/local/bin/
+      if [ ! -e /usr/local/bin/figlet ]; then
+        mv "$figlet_path" /usr/local/bin/
+      fi
     fi
 
     rm -rf "$temp_dir"
