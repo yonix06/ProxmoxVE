@@ -160,33 +160,35 @@ header_info() {
   if ! command -v figlet &> /dev/null; then
     if [ -f /etc/debian_version ] || [ -f /etc/lsb-release ]; then
       apt-get update -y &> /dev/null
-      apt-get install -y tar build-essential &> /dev/null  # Ensure tar and build tools are installed
+      apt-get install -y tar &> /dev/null  # Sicherstellen, dass tar vorhanden ist
     elif [ -f /etc/alpine-release ]; then
-      apk add --no-cache tar build-base &> /dev/null  # Ensure tar and build tools are installed
+      apk add --no-cache tar &> /dev/null  # Sicherstellen, dass tar vorhanden ist
       export TERM=xterm
     else
+      echo "Unsupported OS"
       return 1
     fi
 
     temp_dir=$(mktemp -d)
     curl -sL https://github.com/community-scripts/ProxmoxVE/raw/refs/heads/develop/misc/figlet.tar.xz -o "$temp_dir/figlet.tar.xz"
-    tar -xf "$temp_dir/figlet.tar.xz" -C "$temp_dir"
+    tar -xf "$temp_dir/figlet.tar.xz" -C "$temp_dir"  # Tar entpacken in temp_dir
 
-    cd "$temp_dir" || exit 1
-    make  # Remove the redirection to see errors
+    # Erstellen eines neuen Verzeichnisses ohne den Tar-Ordner
+    mkdir -p /tmp/figlet
+    mv "$temp_dir/figlet" /tmp/figlet/  # Verschiebe die figlet-Binärdatei
+    chmod +x /tmp/figlet/figlet  # Setze die Ausführungsrechte für figlet
 
-    if [ $? -eq 0 ]; then
-      mv "$temp_dir/figlet" /usr/local/bin/
-      chmod +x /usr/local/bin/figlet
+    # Überprüfen, ob figlet bereits installiert ist
+    if [ -e /usr/local/bin/figlet ]; then
+      echo "Figlet is already installed, skipping overwrite."
     else
-      rm -rf "$temp_dir"
-      return 1
+      mv /tmp/figlet/figlet /usr/local/bin/  # Verschiebe figlet nach /usr/local/bin/
     fi
-
-    rm -rf "$temp_dir"
+    
+    rm -rf "$temp_dir"  # Entferne das temporäre Verzeichnis
   fi
 
-  term_width=$(tput cols 2>/dev/null || echo 120)
+  term_width=$(tput cols 2>/dev/null || echo 120)  # Default to 120 columns
   ascii_art=$(figlet -f slant -w "$term_width" "$APP")
   clear
   cat <<EOF
