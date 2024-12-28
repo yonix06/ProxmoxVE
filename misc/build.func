@@ -177,16 +177,20 @@ update_motd_ip() {
   MOTD_FILE="/etc/motd"
   
   if [ -f "$MOTD_FILE" ]; then
+    # Remove existing IP Address lines to prevent duplication
+    sed -i '/IP Address:/d' "$MOTD_FILE"
+    
     IP=$(get_current_ip)
-    # Update the IP address in the MOTD file
-    sed -i "s/.*IP Address:.*/${TAB}${NETWORK}${YW} IP Address: ${GN}${IP}${CL}/" "$MOTD_FILE"
+    # Add the new IP address
+    echo -e "${TAB}${NETWORK}${YW} IP Address: ${GN}${IP}${CL}" >> "$MOTD_FILE"
   fi
 }
+
 
 header_info() {
   # Check if figlet is installed
   if ! command -v figlet &> /dev/null; then
-    msg_info "Figlet not found. Installing..."
+    msg_info "${OS}${BOLD}${DGN}Figlet for ASCII-Header not found. Installing..."
 
     # Install necessary dependencies and figlet
     if [ -f /etc/debian_version ] || [ -f /etc/lsb-release ]; then
@@ -208,7 +212,7 @@ header_info() {
     cd /tmp/figlet
 
     # Run make to compile the figlet binary
-    make
+    make >/dev/null
 
     # Check if the figlet binary exists
     if [ -f "figlet" ]; then
@@ -221,7 +225,7 @@ header_info() {
         cp -r /tmp/figlet/fonts/*.flf /usr/local/share/figlet/
       fi
 
-      msg_ok "Figlet successfully installed and moved to /usr/local/bin"
+      msg_ok "${OS}${BOLD}${DGN}Figlet successfully installed"
     fi
 
     rm -rf "$temp_dir"
