@@ -196,8 +196,6 @@ header_info() {
     fi
 
     rm -rf "$temp_dir"
-  else
-
   fi
 
   term_width=$(tput cols 2>/dev/null || echo 120)
@@ -207,6 +205,7 @@ header_info() {
 $ascii_art
 EOF
 }
+
 
 # This function checks if the script is running through SSH and prompts the user to confirm if they want to proceed or exit.
 ssh_check() {
