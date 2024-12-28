@@ -160,12 +160,11 @@ header_info() {
   if ! command -v figlet &> /dev/null; then
     if [ -f /etc/debian_version ] || [ -f /etc/lsb-release ]; then
       apt-get update -y &> /dev/null
-      apt-get install -y tar &> /dev/null  # Sicherstellen, dass tar vorhanden ist
+      apt-get install -y tar build-essential &> /dev/null  # Ensure tar and build tools are installed
     elif [ -f /etc/alpine-release ]; then
-      apk add --no-cache tar &> /dev/null  # Sicherstellen, dass tar vorhanden ist
+      apk add --no-cache tar build-base &> /dev/null  # Ensure tar and build tools are installed
       export TERM=xterm
     else
-      echo "Unsupported OS"
       return 1
     fi
 
@@ -173,18 +172,20 @@ header_info() {
     curl -sL https://github.com/community-scripts/ProxmoxVE/raw/refs/heads/develop/misc/figlet.tar.xz -o "$temp_dir/figlet.tar.xz"
     tar -xf "$temp_dir/figlet.tar.xz" -C "$temp_dir"
 
-    # Überprüfen, ob die Datei bereits existiert
-    if [ -e /usr/local/bin/figlet ]; then
-      echo "Figlet ist bereits installiert, Überschreibung wird übersprungen."
-    else
+    cd "$temp_dir" || exit 1
+    make &> /dev/null
+    if [ $? -eq 0 ]; then
       mv "$temp_dir/figlet" /usr/local/bin/
       chmod +x /usr/local/bin/figlet
+    else
+      rm -rf "$temp_dir"
+      return 1
     fi
-    
+
     rm -rf "$temp_dir"
   fi
 
-  term_width=$(tput cols 2>/dev/null || echo 120)  # Default to 120 columns
+  term_width=$(tput cols 2>/dev/null || echo 120)
   ascii_art=$(figlet -f slant -w "$term_width" "$APP")
   clear
   cat <<EOF
