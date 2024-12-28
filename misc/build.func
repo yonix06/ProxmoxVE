@@ -189,7 +189,7 @@ update_motd_ip() {
 header_info() {
   # Check if figlet is installed
   if ! command -v figlet &> /dev/null; then
-    echo -e "${INFO}${BOLD}${DGN}Figlet for ASCII-Header not found. Installing...${CL}"
+    echo -e "${INFO}${BOLD}${DGN}Figlet for ASCII-Header not found. Installing... ${CL}"
 
     # Install necessary dependencies and figlet
     if [ -f /etc/debian_version ] || [ -f /etc/lsb-release ]; then
@@ -201,35 +201,26 @@ header_info() {
     else
       return 1
     fi
-
     temp_dir=$(mktemp -d)
     curl -sL https://github.com/community-scripts/ProxmoxVE/raw/refs/heads/develop/misc/figlet.tar.xz -o "$temp_dir/figlet.tar.xz"
-
     mkdir -p /tmp/figlet
     tar -xf "$temp_dir/figlet.tar.xz" -C /tmp/figlet --strip-components=1
-
     cd /tmp/figlet
-
     # Run make to compile the figlet binary
     make >/dev/null
-
     # Check if the figlet binary exists
     if [ -f "figlet" ]; then
       chmod +x figlet
-
       # Move figlet to /usr/local/bin if not already there
       if [ ! -e /usr/local/bin/figlet ]; then
         mv figlet /usr/local/bin/
         mkdir -p /usr/local/share/figlet
         cp -r /tmp/figlet/fonts/*.flf /usr/local/share/figlet/
       fi
-
-      echo -e "${CM}${BOLD}${DGN}Figlet successfully installed.${CL}"
+      echo -e "${CM}${BOLD}${DGN}Figlet successfully installed. ${CL}"
     fi
-
     rm -rf "$temp_dir"
   fi
-
   term_width=$(tput cols 2>/dev/null || echo 120)
   ascii_art=$(figlet -f slant -w "$term_width" "$APP")
   clear
