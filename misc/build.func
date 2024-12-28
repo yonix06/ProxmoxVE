@@ -158,21 +158,32 @@ arch_check() {
 
 # This function sets the APP-Name into an ASCII Header in Slant, figlet needed on proxmox main node.
 header_info() {
-  if ! command -v toilet &> /dev/null; then
-    # Install toilet for Debian/Ubuntu-based systems
-    if [ -f /etc/debian_version ]; then
+  if ! command -v figlet &> /dev/null; then
+    if [ -f /etc/debian_version ] || [ -f /etc/lsb-release ]; then
       apt-get update -y &> /dev/null
-      apt-get install -y toilet &> /dev/null
+      apt-get install -y tar &> /dev/null  # Sicherstellen, dass tar vorhanden ist
     elif [ -f /etc/alpine-release ]; then
-      apk add --no-cache toilet &> /dev/null
+      apk add --no-cache tar &> /dev/null  # Sicherstellen, dass tar vorhanden ist
+      export TERM=xterm
     else
+      echo "Unsupported OS"
       return 1
     fi
+
+    temp_dir=$(mktemp -d)
+    curl -sL https://github.com/community-scripts/ProxmoxVE/raw/refs/heads/develop/misc/figlet.tar.xz -o "$temp_dir/figlet.tar.xz"
+    tar -xf "$temp_dir/figlet.tar.xz" -C "$temp_dir"
+    mv "$temp_dir/figlet" /usr/local/bin/
+    chmod +x /usr/local/bin/figlet
+    rm -rf "$temp_dir"
   fi
 
+  term_width=$(tput cols 2>/dev/null || echo 120)  # Default to 120 columns
+  ascii_art=$(figlet -f slant -w "$term_width" "$APP")
   clear
-  term_width=$(tput cols 2>/dev/null || echo 80)  # Fallback to 80 columns
-  toilet --width "$term_width" --gay "$APP"
+  cat <<EOF
+$ascii_art
+EOF
 }
 
 # This function checks if the script is running through SSH and prompts the user to confirm if they want to proceed or exit.
