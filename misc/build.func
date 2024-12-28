@@ -186,11 +186,10 @@ update_motd_ip() {
   fi
 }
 
-
 header_info() {
   # Check if figlet is installed
   if ! command -v figlet &> /dev/null; then
-    msg_info "${INFO}${BOLD}${DGN}Figlet for ASCII-Header not found. Installing..."
+    echo -e "${INFO}${BOLD}${DGN}Figlet for ASCII-Header not found. Installing..."
 
     # Install necessary dependencies and figlet
     if [ -f /etc/debian_version ] || [ -f /etc/lsb-release ]; then
@@ -225,7 +224,7 @@ header_info() {
         cp -r /tmp/figlet/fonts/*.flf /usr/local/share/figlet/
       fi
 
-      msg_ok "${CM}${BOLD}${DGN}Figlet successfully installed"
+      echo -e "${CM}${BOLD}${DGN}Figlet successfully installed"
     fi
 
     rm -rf "$temp_dir"
@@ -234,9 +233,7 @@ header_info() {
   term_width=$(tput cols 2>/dev/null || echo 120)
   ascii_art=$(figlet -f slant -w "$term_width" "$APP")
   clear
-  cat <<EOF
-$ascii_art
-EOF
+  echo "$ascii_art"
 }
 
 # This function checks if the script is running through SSH and prompts the user to confirm if they want to proceed or exit.
