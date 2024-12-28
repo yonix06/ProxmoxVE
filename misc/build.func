@@ -156,7 +156,6 @@ arch_check() {
   fi
 }
 
-# This function sets the APP-Name into an ASCII Header in Slant, figlet needed on proxmox main node.
 header_info() {
   if ! command -v figlet &> /dev/null; then
     if [ -f /etc/debian_version ] || [ -f /etc/lsb-release ]; then
@@ -173,8 +172,15 @@ header_info() {
     temp_dir=$(mktemp -d)
     curl -sL https://github.com/community-scripts/ProxmoxVE/raw/refs/heads/develop/misc/figlet.tar.xz -o "$temp_dir/figlet.tar.xz"
     tar -xf "$temp_dir/figlet.tar.xz" -C "$temp_dir"
-    mv "$temp_dir/figlet" /usr/local/bin/
-    chmod +x /usr/local/bin/figlet
+
+    # Überprüfen, ob die Datei bereits existiert
+    if [ -e /usr/local/bin/figlet ]; then
+      echo "Figlet ist bereits installiert, Überschreibung wird übersprungen."
+    else
+      mv "$temp_dir/figlet" /usr/local/bin/
+      chmod +x /usr/local/bin/figlet
+    fi
+    
     rm -rf "$temp_dir"
   fi
 
