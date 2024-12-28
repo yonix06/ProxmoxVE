@@ -158,13 +158,13 @@ arch_check() {
 
 # This function sets the APP-Name into an ASCII Header in Slant, figlet needed on proxmox main node.
 header_info() {
-  if ! command -v banner &> /dev/null; then
-    # Install banner for Debian/Ubuntu-based systems
+  if ! command -v toilet &> /dev/null; then
+    # Install toilet for Debian/Ubuntu-based systems
     if [ -f /etc/debian_version ]; then
       apt-get update -y &> /dev/null
-      apt-get install -y sysvbanner &> /dev/null
+      apt-get install -y toilet &> /dev/null
     elif [ -f /etc/alpine-release ]; then
-      apk add --no-cache sysvbanner &> /dev/null
+      apk add --no-cache toilet &> /dev/null
     else
       return 1
     fi
@@ -172,17 +172,7 @@ header_info() {
 
   clear
   term_width=$(tput cols 2>/dev/null || echo 80)  # Fallback to 80 columns
-  echo
-  banner "$APP" | fold -w "$term_width"
-  echo
-}
-
-  term_width=$(tput cols 2>/dev/null || echo 120)  # Fallback to 120 columns
-  ascii_art=$(figlet -f slant -w "$term_width" "$APP")
-  clear
-  cat <<EOF
-$ascii_art
-EOF
+  toilet --width "$term_width" --gay "$APP"
 }
 
 # This function checks if the script is running through SSH and prompts the user to confirm if they want to proceed or exit.
