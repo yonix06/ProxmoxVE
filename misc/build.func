@@ -156,6 +156,33 @@ arch_check() {
   fi
 }
 
+# Function to get the current IP address based on the distribution
+get_current_ip() {
+  if [ -f /etc/os-release ]; then
+    # Check for Debian/Ubuntu (uses hostname -I)
+    if grep -qE 'ID=debian|ID=ubuntu' /etc/os-release; then
+      CURRENT_IP=$(hostname -I | awk '{print $1}')
+    # Check for Alpine (uses ip command)
+    elif grep -q 'ID=alpine' /etc/os-release; then
+      CURRENT_IP=$(ip -4 addr show eth0 | awk '/inet / {print $2}' | cut -d/ -f1 | head -n 1)
+    else
+      CURRENT_IP="Unknown"
+    fi
+  fi
+  echo "$CURRENT_IP"
+}
+
+# Function to update the IP address in the MOTD file
+update_motd_ip() {
+  MOTD_FILE="/etc/motd"
+  
+  if [ -f "$MOTD_FILE" ]; then
+    IP=$(get_current_ip)
+    # Update the IP address in the MOTD file
+    sed -i "s/.*IP Address:.*/${TAB}${NETWORK}${YW} IP Address: ${GN}${IP}${CL}/" "$MOTD_FILE"
+  fi
+}
+
 header_info() {
   # Check if figlet is installed
   if ! command -v figlet &> /dev/null; then
@@ -735,6 +762,7 @@ start() {
       exit
     fi
     SPINNER_PID=""
+    update_motd_ip
     update_script
   fi
 }
@@ -894,5 +922,3 @@ EOF
     systemctl start ping-instances.service
   fi
 }
-
-update motd_ip
