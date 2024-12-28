@@ -158,32 +158,24 @@ arch_check() {
 
 # This function sets the APP-Name into an ASCII Header in Slant, figlet needed on proxmox main node.
 header_info() {
-  if ! command -v figlet &> /dev/null; then
-    # Check for Debian/Ubuntu-based systems
+  if ! command -v banner &> /dev/null; then
+    # Install banner for Debian/Ubuntu-based systems
     if [ -f /etc/debian_version ]; then
       apt-get update -y &> /dev/null
-      apt-get install -y build-essential git &> /dev/null
+      apt-get install -y sysvbanner &> /dev/null
     elif [ -f /etc/alpine-release ]; then
-      # For Alpine Linux
-      apk add --no-cache build-base git ncurses &> /dev/null
-      export TERM=xterm
+      apk add --no-cache sysvbanner &> /dev/null
     else
       return 1
     fi
-
-    # Build and install figlet from source
-    temp_dir=$(mktemp -d)
-    git clone https://github.com/cmatsuoka/figlet.git "$temp_dir" &> /dev/null
-    cd "$temp_dir" || exit 1
-    make &> /dev/null
-    make install &> /dev/null
-    cd - &> /dev/null
-    rm -rf "$temp_dir"
-
-    if ! command -v figlet &> /dev/null; then
-      return 1
-    fi
   fi
+
+  clear
+  term_width=$(tput cols 2>/dev/null || echo 80)  # Fallback to 80 columns
+  echo
+  banner "$APP" | fold -w "$term_width"
+  echo
+}
 
   term_width=$(tput cols 2>/dev/null || echo 120)  # Fallback to 120 columns
   ascii_art=$(figlet -f slant -w "$term_width" "$APP")
