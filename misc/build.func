@@ -190,7 +190,7 @@ update_motd_ip() {
 header_info() {
   # Check if figlet is installed
   if ! command -v figlet &> /dev/null; then
-    msg_info "${OS}${BOLD}${DGN}Figlet for ASCII-Header not found. Installing..."
+    msg_info "${INFO}${BOLD}${DGN}Figlet for ASCII-Header not found. Installing..."
 
     # Install necessary dependencies and figlet
     if [ -f /etc/debian_version ] || [ -f /etc/lsb-release ]; then
@@ -225,7 +225,7 @@ header_info() {
         cp -r /tmp/figlet/fonts/*.flf /usr/local/share/figlet/
       fi
 
-      msg_ok "${OS}${BOLD}${DGN}Figlet successfully installed"
+      msg_ok "${CM}${BOLD}${DGN}Figlet successfully installed"
     fi
 
     rm -rf "$temp_dir"
