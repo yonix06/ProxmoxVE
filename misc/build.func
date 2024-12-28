@@ -173,7 +173,8 @@ header_info() {
     tar -xf "$temp_dir/figlet.tar.xz" -C "$temp_dir"
 
     cd "$temp_dir" || exit 1
-    make &> /dev/null
+    make  # Remove the redirection to see errors
+
     if [ $? -eq 0 ]; then
       mv "$temp_dir/figlet" /usr/local/bin/
       chmod +x /usr/local/bin/figlet
