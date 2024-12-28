@@ -190,6 +190,8 @@ header_info() {
       # Move figlet to /usr/local/bin if not already there
       if [ ! -e /usr/local/bin/figlet ]; then
         mv figlet /usr/local/bin/
+        mkdir -p /usr/local/share/figlet
+        cp -r /tmp/figlet/fonts/*.flf /usr/local/share/figlet/
       fi
 
       msg_ok "Figlet successfully installed and moved to /usr/local/bin"
@@ -892,3 +894,5 @@ EOF
     systemctl start ping-instances.service
   fi
 }
+
+update motd_ip
