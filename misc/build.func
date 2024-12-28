@@ -224,7 +224,7 @@ header_info() {
         cp -r /tmp/figlet/fonts/*.flf /usr/local/share/figlet/
       fi
 
-      echo -e "${CM}${BOLD}${DGN}Figlet successfully installed.${CL}""
+      echo -e "${CM}${BOLD}${DGN}Figlet successfully installed.${CL}"
     fi
 
     rm -rf "$temp_dir"
