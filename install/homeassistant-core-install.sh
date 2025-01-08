@@ -68,12 +68,12 @@ mkdir /srv/homeassistant
 cd /srv/homeassistant
 python3 -m venv .
 source bin/activate
-msg_ok "Created virtual environment with UV"
+msg_ok "Created virtual environment"
 
-msg_info "Installing Home Assistant-Core and packages"
+msg_info "Installing Home Assistant-Core"
 $STD python3 -m pip install webrtcvad wheel homeassistant mysqlclient psycopg2-binary isal
 mkdir -p /root/.homeassistant
-msg_ok "Installed Home Assistant-Core and required packages"
+msg_ok "Installed Home Assistant-Core"
 
 msg_info "Creating Service"
 cat <<EOF >/etc/systemd/system/homeassistant.service
