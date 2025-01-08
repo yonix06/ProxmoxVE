@@ -59,8 +59,6 @@ $STD apt-get install -y \
   python3.13-venv
 
 ln -sf /usr/bin/python3.13 /usr/bin/python3
-python3 -m ensurepip
-python3 -m pip install --upgrade pip
 msg_ok "Setup Python3"
 
 msg_info "Installing UV"
