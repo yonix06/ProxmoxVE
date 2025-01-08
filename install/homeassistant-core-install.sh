@@ -61,19 +61,15 @@ $STD apt-get install -y \
 ln -sf /usr/bin/python3.13 /usr/bin/python3
 msg_ok "Setup Python3"
 
-msg_info "Installing UV"
-$STD pip install uv
-msg_ok "Installed UV"
-
 msg_info "Setting up Home Assistant-Core environment"
 mkdir /srv/homeassistant
 cd /srv/homeassistant
-uv venv . &>/dev/null
+python3 venv . &>/dev/null
 source bin/activate
 msg_ok "Created virtual environment with UV"
 
 msg_info "Installing Home Assistant-Core and packages"
-$STD uv pip install webrtcvad wheel homeassistant mysqlclient psycopg2-binary isal
+$STD python3 -m pip install webrtcvad wheel homeassistant==2025.1.1 mysqlclient psycopg2-binary isal
 mkdir -p /root/.homeassistant
 msg_ok "Installed Home Assistant-Core and required packages"
 
