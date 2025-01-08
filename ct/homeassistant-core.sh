@@ -9,10 +9,10 @@ source <(curl -s https://raw.githubusercontent.com/community-scripts/ProxmoxVE/d
 APP="Home Assistant-Core"
 var_tags="automation;smarthome"
 var_cpu="2"
-var_ram="1024"
-var_disk="8"
+var_ram="2048"
+var_disk="10"
 var_os="ubuntu"
-var_version="24.04"
+var_version="24.10"
 var_unprivileged="1"
 
 # App Output & Base Settings
@@ -51,7 +51,7 @@ function update_script() {
       echo -e "${GN}Updating to Stable Version${CL}"
       BR=""
     fi
-    if [[ "$PY" == "python3.11" ]]; then echo -e "⚠️  Home Assistant will soon require Python 3.12."; fi
+    if [[ "$PY" == "python3.11" ]]; then echo -e "⚠️  Home Assistant will soon require Python 3.13."; fi
 
     msg_info "Stopping Home Assistant"
     systemctl stop homeassistant
