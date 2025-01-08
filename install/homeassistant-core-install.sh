@@ -45,7 +45,7 @@ $STD apt-get install -y \
   libmariadb-dev-compat \
   libatlas-base-dev \
   software-properties-common \
-  default-libmysqlclient-dev \
+  libmariadb-dev \
   pkg-config
 msg_ok "Installed Dependencies"
 
