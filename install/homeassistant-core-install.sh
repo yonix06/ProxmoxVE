@@ -47,13 +47,20 @@ $STD apt-get install -y \
   software-properties-common
 msg_ok "Installed Dependencies"
 
-msg_info "Setup Python3"
+msg_info "Setup Python3/pip"
 $STD apt-get update
+$STD rm -rf /usr/lib/python3.*/EXTERNALLY-MANAGED
+$STD apt-get remove --purge -y python3.12 python3.12-dev python3.12-venv
+
 $STD apt-get install -y \
-  python3.13-* \
+  python3.13 \
   python3-pip \
   python3.13-dev \
   python3.13-venv
+
+ln -sf /usr/bin/python3.13 /usr/bin/python3
+python3 -m ensurepip
+python3 -m pip install --upgrade pip
 msg_ok "Setup Python3"
 
 msg_info "Installing UV"
