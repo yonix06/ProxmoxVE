@@ -44,7 +44,9 @@ $STD apt-get install -y \
   libavfilter-dev \
   libmariadb-dev-compat \
   libatlas-base-dev \
-  software-properties-common
+  software-properties-common \
+  default-libmysqlclient-dev \
+  pkg-config
 msg_ok "Installed Dependencies"
 
 msg_info "Setup Python3/pip"
@@ -69,7 +71,7 @@ source bin/activate
 msg_ok "Created virtual environment with UV"
 
 msg_info "Installing Home Assistant-Core and packages"
-$STD python3 -m pip install webrtcvad wheel homeassistant==2025.1.1 mysqlclient psycopg2-binary isal
+$STD python3 -m pip install webrtcvad wheel homeassistant mysqlclient psycopg2-binary isal
 mkdir -p /root/.homeassistant
 msg_ok "Installed Home Assistant-Core and required packages"
 
