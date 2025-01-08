@@ -64,7 +64,7 @@ msg_ok "Setup Python3"
 msg_info "Setting up Home Assistant-Core environment"
 mkdir /srv/homeassistant
 cd /srv/homeassistant
-python3 venv .
+python3 -m venv .
 source bin/activate
 msg_ok "Created virtual environment with UV"
 
