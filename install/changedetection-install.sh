@@ -50,9 +50,9 @@ $STD apt-get install -y \
   ca-certificates \
   ffmpeg \
   locales \
-  lsb-release 
-  pdftk
-  unzip
+  lsb-release \
+  pdftk \
+  unzip \
   gnupg
 msg_ok "Installed Dependencies"
 
