@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2021-2024 tteck
+# Copyright (c) 2021-2025 tteck
 # Author: tteck (tteckster)
 # License: MIT
 # https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
@@ -26,6 +26,10 @@ $STD apt-get install -y \
   libatk-bridge2.0-0 \
   libasound2 \
   libatk1.0-0 \
+  libappindicator1 \
+  libappindicator3-1 \
+  libasound2 \
+  libatk-bridge2.0-0 \
   libcairo2 \
   libcups2 \
   libdbus-1-3 \
@@ -44,6 +48,11 @@ $STD apt-get install -y \
   xdg-utils \
   xvfb \
   ca-certificates \
+  ffmpeg \
+  locales \
+  lsb-release 
+  pdftk
+  unzip
   gnupg
 msg_ok "Installed Dependencies"
 
@@ -88,19 +97,27 @@ $STD apt-get install -y \
   libfontconfig1 \
   fonts-freefont-ttf \
   fonts-gfs-neohellenic \
-  fonts-indic fonts-ipafont-gothic \
-  fonts-kacst fonts-liberation \
+  fonts-indic \
+  fonts-ipafont-gothic \
+  fonts-kacst \
+  fonts-liberation \
   fonts-noto-cjk \
   fonts-noto-color-emoji \
   msttcorefonts \
   fonts-roboto \
   fonts-thai-tlwg \
+  fonts-ubuntu \
   fonts-wqy-zenhei
 msg_ok "Installed Font Packages"
 
 msg_info "Installing X11 Packages"
 $STD apt-get install -y \
   libx11-6 \
+  libc6  \
+  libgcc1 \
+  libstdc++6 \ 
+  libx11-6 \
+  libx11-xcb1 \
   libx11-xcb1 \
   libxcb1 \
   libxcomposite1 \
@@ -113,35 +130,49 @@ $STD apt-get install -y \
   libxrender1 \
   libxss1 \
   libxtst6
+ 
 msg_ok "Installed X11 Packages"
 
 msg_info "Creating Services"
+
+
+cat <<EOF >/etc/systemd/system/browserless.service
+[Unit]
+Description=browserless service
+After=network.target
+
+[Service]
+Environment=APP_DIR=/opt/browserless
+Environment=PLAYWRIGHT_BROWSERS_PATH=/opt/browserless
+Environment=CONNECTION_TIMEOUT=60000
+Environment=HOST=127.0.0.1
+Environment=LANG="C.UTF-8"
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Environment=WORKSPACE_DIR=/opt/browserless/workspace
+WorkingDirectory=/opt/browserless
+ExecStart=/opt/browserless/scripts/start.sh
+SyslogIdentifier=browserless
+
+[Install]
+WantedBy=default.target
+EOF
+
 cat <<EOF >/etc/systemd/system/changedetection.service
 [Unit]
 Description=Change Detection
 After=network-online.target
 After=network.target browserless.service
 Wants=browserless.service
+
 [Service]
 Type=simple
 WorkingDirectory=/opt/changedetection
 Environment=WEBDRIVER_URL=http://127.0.0.1:4444/wd/hub
-Environment=PLAYWRIGHT_DRIVER_URL=ws://localhost:3000/chrome?launch={"defaultViewport":{"height":720,"width":1280},"headless":false,"stealth":true}&blockAds=true
+Environment=PLAYWRIGHT_DRIVER_URL=ws://localhost:3000/chrome?launch={"defaultViewport":{"height":720,"width":1280},"headless":false,"stealth":true}&blockAds=true&--disable-web-security=true
 ExecStart=changedetection.io -d /opt/changedetection -p 5000
 [Install]
 WantedBy=multi-user.target
-EOF
-
-cat <<EOF >/etc/systemd/system/browserless.service
-[Unit]
-Description=browserless service
-After=network.target
-[Service]
-WorkingDirectory=/opt/browserless
-ExecStart=/opt/browserless/scripts/start.sh
-SyslogIdentifier=browserless
-[Install]
-WantedBy=default.target
 EOF
 
 systemctl enable -q --now browserless
