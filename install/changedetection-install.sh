@@ -103,10 +103,9 @@ $STD apt-get install -y \
   fonts-liberation \
   fonts-noto-cjk \
   fonts-noto-color-emoji \
-  msttcorefonts \
+  ttf-mscorefonts-installer \
   fonts-roboto \
   fonts-thai-tlwg \
-  fonts-ubuntu \
   fonts-wqy-zenhei
 msg_ok "Installed Font Packages"
 
