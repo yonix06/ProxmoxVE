@@ -212,7 +212,6 @@ if ! pct create "$CTID" "${TEMPLATE_STORAGE}:vztmpl/${TEMPLATE}" "${PCT_OPTIONS[
     { msg_error "A problem occurred while re-downloading the LXC template."; exit 208; }
   msg_ok "Re-downloaded LXC Template"
 
-  msg_info "Retrying LXC Container creation"
   if ! pct create "$CTID" "${TEMPLATE_STORAGE}:vztmpl/${TEMPLATE}" "${PCT_OPTIONS[@]}" &>/dev/null; then
     msg_error "A problem occurred while trying to create container after re-downloading template."
     exit 200
