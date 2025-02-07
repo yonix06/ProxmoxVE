@@ -203,15 +203,13 @@ PCT_OPTIONS=(${PCT_OPTIONS[@]:-${DEFAULT_PCT_OPTIONS[@]}})
 # Create container with template integrity check
 msg_info "Creating LXC Container"
   if ! pct create "$CTID" "${TEMPLATE_STORAGE}:vztmpl/${TEMPLATE}" "${PCT_OPTIONS[@]}" &>/dev/null; then
-    
       [[ -f "$TEMPLATE_PATH" ]] && rm -f "$TEMPLATE_PATH"
+      
     msg_ok "Template integrity check completed"
-    
-    
     pveam download "$TEMPLATE_STORAGE" "$TEMPLATE" >/dev/null ||
+    
       { msg_error "A problem occurred while re-downloading the LXC template."; exit 208; }
     msg_ok "Re-downloaded LXC Template"
-  
     if ! pct create "$CTID" "${TEMPLATE_STORAGE}:vztmpl/${TEMPLATE}" "${PCT_OPTIONS[@]}" &>/dev/null; then
         msg_error "A problem occurred while trying to create container after re-downloading template."
       exit 200
