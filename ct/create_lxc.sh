@@ -204,7 +204,7 @@ PCT_OPTIONS=(${PCT_OPTIONS[@]:-${DEFAULT_PCT_OPTIONS[@]}})
 msg_info "Creating LXC Container"
   if ! pct create "$CTID" "${TEMPLATE_STORAGE}:vztmpl/${TEMPLATE}" "${PCT_OPTIONS[@]}" &>/dev/null; then
     msg_info "Container creation failed, checking template integrity..."
-    [[ -f "$TEMPLATE_PATH" ]] && rm -f "$TEMPLATE_PATH"
+      [[ -f "$TEMPLATE_PATH" ]] && rm -f "$TEMPLATE_PATH"
     msg_ok "Template integrity check completed"
     
     msg_info "Re-downloading LXC Template"
@@ -213,7 +213,7 @@ msg_info "Creating LXC Container"
     msg_ok "Re-downloaded LXC Template"
   
     if ! pct create "$CTID" "${TEMPLATE_STORAGE}:vztmpl/${TEMPLATE}" "${PCT_OPTIONS[@]}" &>/dev/null; then
-      msg_error "A problem occurred while trying to create container after re-downloading template."
+        msg_error "A problem occurred while trying to create container after re-downloading template."
       exit 200
     fi
   fi
