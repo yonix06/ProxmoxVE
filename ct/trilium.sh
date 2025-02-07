@@ -47,7 +47,7 @@ function update_script() {
     wget -q https://github.com/TriliumNext/Notes/releases/download/${RELEASE}/TriliumNextNotes-linux-x64-${RELEASE}.tar.xz
     tar -xf TriliumNextNotes-linux-x64-${RELEASE}.tar.xz
     mv trilium-linux-x64-server /opt/trilium
-    mv /opt/trilium_backup/{db,dump-db} /opt/trilium/
+    cp -r /opt/trilium_backup/{db,dump-db} /opt/trilium/
     msg_ok "Updated to ${RELEASE}"
 
     msg_info "Cleaning up"
