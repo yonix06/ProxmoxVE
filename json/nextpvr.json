@@ -2,7 +2,7 @@
   "name": "NextPVR",
   "slug": "nextpvr",
   "categories": [
-    17
+        15
   ],
   "date_created": "2024-11-20",
   "type": "ct",
@@ -21,7 +21,7 @@
         "cpu": 1,
         "ram": 1024,
         "hdd": 5,
-        "os": "Debian",
+        "os": "debian",
         "version": "12"
       }
     }

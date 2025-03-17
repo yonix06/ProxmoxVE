@@ -2,7 +2,7 @@
     "name": "CasaOS",
     "slug": "casaos",
     "categories": [
-        8
+        2
     ],
     "date_created": "2024-05-02",
     "type": "ct",
@@ -30,5 +30,14 @@
         "username": null,
         "password": null
     },
-    "notes": []
+    "notes": [
+        {
+            "text": "If the LXC is created Privileged, the script will automatically set up USB passthrough.",
+            "type": "warning"
+        },
+        {
+            "text": "WARNING: Installation sources scripts outside of Community Scripts repo. Please check the source before installing.",
+            "type": "warning"
+        }
+    ]
 }

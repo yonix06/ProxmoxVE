@@ -28,6 +28,10 @@ function ScriptItem({
     setSelectedScript(null);
   };
 
+  const defaultInstallMethod = item.install_methods?.[0];
+  const os = defaultInstallMethod?.resources?.os || "Proxmox Node";
+  const version = defaultInstallMethod?.resources?.version || "";
+
   return (
     <div className="mr-7 mt-0 flex w-full min-w-fit">
       <div className="flex w-full min-w-fit">
@@ -60,6 +64,9 @@ function ScriptItem({
                       <p className="w-full text-sm text-muted-foreground">
                         Date added: {extractDate(item.date_created)}
                       </p>
+                      <p className="text-sm text-muted-foreground">
+                        Default OS: {os} {version}
+                      </p>
                     </div>
                     <div className="flex gap-5">
                       <DefaultSettings item={item} />
@@ -81,7 +88,7 @@ function ScriptItem({
               <div className="mt-4 rounded-lg border bg-accent/50">
                 <div className="flex gap-3 px-4 py-2">
                   <h2 className="text-lg font-semibold">
-                    How to {item.type ? "install" : "use"}
+                    How to {item.type == "misc" ? "use" : "install"}
                   </h2>
                   <Tooltips item={item} />
                 </div>

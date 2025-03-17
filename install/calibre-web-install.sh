@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2021-2024 tteck
+# Copyright (c) 2021-2025 tteck
 # Author: tteck (tteckster)
 # Co-Author: remz1337
-# License: MIT
-# https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
+# License: MIT | https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
+# Source: https://github.com/janeczku/calibre-web
 
 source /dev/stdin <<< "$FUNCTIONS_FILE_PATH"
 color
@@ -35,6 +35,7 @@ msg_ok "Installed Kepubify"
 
 msg_info "Installing Calibre-Web"
 mkdir -p /opt/calibre-web
+$STD apt-get install -y calibre
 $STD wget https://github.com/janeczku/calibre-web/raw/master/library/metadata.db -P /opt/calibre-web
 $STD pip install calibreweb
 $STD pip install jsonschema

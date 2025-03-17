@@ -2,7 +2,7 @@
     "name": "HiveMQ CE",
     "slug": "hivemq",
     "categories": [
-        4
+        18
     ],
     "date_created": "2024-05-02",
     "type": "ct",
@@ -30,5 +30,10 @@
         "username": null,
         "password": null
     },
-    "notes": []
+    "notes": [
+        {
+            "text": "To check if HiveMQ is listening to the default port for MQTT `lsof -i :1883`",
+            "type": "info"
+        }
+    ]
 }

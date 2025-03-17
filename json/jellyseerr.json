@@ -2,11 +2,11 @@
     "name": "Jellyseerr",
     "slug": "jellyseerr",
     "categories": [
-        12
+        14
     ],
     "date_created": "2024-05-02",
     "type": "ct",
-    "updateable": false,
+    "updateable": true,
     "privileged": false,
     "interface_port": 5055,
     "documentation": null,

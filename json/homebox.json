@@ -2,7 +2,7 @@
     "name": "HomeBox",
     "slug": "homebox",
     "categories": [
-        14
+        24
     ],
     "date_created": "2024-09-16",
     "type": "ct",
@@ -32,7 +32,7 @@
     },
     "notes": [
         {
-            "text": "env file location: `/opt/.env`",
+            "text": ".env file location: `/opt/.env`",
             "type": "info"
         }
     ]

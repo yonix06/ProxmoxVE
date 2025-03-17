@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2021-2024 community-scripts ORG
+# Copyright (c) 2021-2025 community-scripts ORG
 # Author: davalanche
-# License: MIT
-# https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
+# License: MIT | https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
 # Source: https://github.com/mylar3/mylar3
 
 source /dev/stdin <<< "$FUNCTIONS_FILE_PATH"
@@ -26,11 +25,11 @@ $STD apt-get install -y unrar
 rm /etc/apt/sources.list.d/non-free.list
 msg_ok "Installed Dependencies"
 
-msg_info "Updating Python3"
+msg_info "Setup Python3"
 $STD apt-get install -y python3-pip
 rm -rf /usr/lib/python3.*/EXTERNALLY-MANAGED
 $STD pip install -U --no-cache-dir pip
-msg_ok "Updated Python3"
+msg_ok "Setup Python3"
 
 msg_info "Installing ${APPLICATION}"
 mkdir -p /opt/mylar3

@@ -2,7 +2,7 @@
     "name": "Kavita",
     "slug": "kavita",
     "categories": [
-        14
+        13
     ],
     "date_created": "2024-05-02",
     "type": "ct",
@@ -30,5 +30,9 @@
         "username": null,
         "password": null
     },
-    "notes": []
+    "notes": [{
+        "text": "To enable folder adding append your lxc.conf on your host with 'lxc.environment: DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1'",
+        "type": "info"
+      }
+    ]
 }

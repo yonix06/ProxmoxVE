@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2021-2024 tteck
+# Copyright (c) 2021-2025 tteck
 # Author: tteck (tteckster)
-# License: MIT
-# https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
+# License: MIT | https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
+# Source: https://jellyfin.org/
 
 source /dev/stdin <<< "$FUNCTIONS_FILE_PATH"
 color
@@ -51,6 +51,7 @@ EOF
 # Install Jellyfin using the metapackage (which will fetch jellyfin-server, jellyfin-web, and jellyfin-ffmpeg5)
 $STD apt-get update
 $STD apt-get install -y jellyfin
+sed -i 's/"MinimumLevel": "Information"/"MinimumLevel": "Error"/g' /etc/jellyfin/logging.json
 chown -R jellyfin:adm /etc/jellyfin
 sleep 10
 systemctl restart jellyfin

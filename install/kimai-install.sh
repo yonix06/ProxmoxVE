@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2021-2024 community-scripts ORG
+# Copyright (c) 2021-2025 community-scripts ORG
 # Author: MickLesk
-# License: MIT
-# https://github.com/tteck/Proxmox/raw/main/LICENSE
+# License: MIT | https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
+# Source: https://www.kimai.org/
 
 source /dev/stdin <<< "$FUNCTIONS_FILE_PATH"
 color
@@ -24,9 +24,24 @@ $STD apt-get install -y \
   expect \
   composer \
   mariadb-server \
-  libapache2-mod-php \
-  php8.2-{mbstring,gd,intl,pdo,mysql,tokenizer,zip,xml} 
+  lsb-release
 msg_ok "Installed Dependencies"
+
+msg_info "Setup PHP8.4 Repository"
+$STD curl -sSLo /tmp/debsuryorg-archive-keyring.deb https://packages.sury.org/debsuryorg-archive-keyring.deb
+$STD dpkg -i /tmp/debsuryorg-archive-keyring.deb
+$STD sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+$STD apt-get update
+msg_ok "Setup PHP8.4 Repository"
+
+msg_info "Setup PHP"
+$STD apt-get remove -y php8.2*
+#$STD apt-get remove -y php8.3*
+$STD apt-get install -y \
+  php8.3 \
+  php8.3-{mbstring,gd,intl,common,mysql,zip,xml} \
+  libapache2-mod-php8.3
+msg_info "Setup PHP"
 
 msg_info "Setting up database"
 DB_NAME=kimai_db
@@ -56,11 +71,12 @@ $STD composer install --no-dev --optimize-autoloader --no-interaction
 cp .env.dist .env
 sed -i "/^DATABASE_URL=/c\DATABASE_URL=mysql://$DB_USER:$DB_PASS@127.0.0.1:3306/$DB_NAME?charset=utf8mb4&serverVersion=$MYSQL_VERSION" /opt/kimai/.env
 $STD bin/console kimai:install -n
-chown -R :www-data /opt/kimai
-chmod -R g+r /opt/kimai
-chmod -R g+rw /opt/kimai
-sudo chown -R www-data:www-data /opt/kimai
-sudo chmod -R 755 /opt/kimai
+chown -R :www-data /opt/*
+chmod -R g+r /opt/*
+chmod -R g+rw /opt/*
+chown -R www-data:www-data /opt/*
+chmod -R 755 /opt/*
+chmod -R 777 /opt/kimai/var/ 
 $STD expect <<EOF
 set timeout -1
 log_user 0
@@ -72,6 +88,20 @@ send "helper-scripts.com\r"
 
 expect eof
 EOF
+$STD composer update --no-interaction
+cat <<EOF >/opt/kimai/config/packages/local.yaml
+kimai:
+    timesheet:
+        rounding:
+            default:
+                begin: 15
+                end: 15
+
+admin_lte:
+    options:
+        default_avatar: build/apple-touch-icon.png
+EOF
+
 echo "${RELEASE}" >"/opt/${APPLICATION}_version.txt"
 msg_ok "Installed Kimai"
 

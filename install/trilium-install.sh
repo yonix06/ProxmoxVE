@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2021-2024 tteck
+# Copyright (c) 2021-2025 tteck
 # Author: tteck (tteckster)
-# License: MIT
-# https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
+# License: MIT | https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
+# Source: https://triliumnext.github.io/Docs/
 
 source /dev/stdin <<< "$FUNCTIONS_FILE_PATH"
 color
@@ -14,23 +14,24 @@ network_check
 update_os
 
 msg_info "Installing Dependencies"
-$STD apt-get install -y curl
-$STD apt-get install -y sudo
-$STD apt-get install -y mc
+$STD apt-get install -y \
+  curl \
+  sudo \
+  mc
 msg_ok "Installed Dependencies"
 
+msg_info "Setup TriliumNext"
+cd /opt
 RELEASE=$(curl -s https://api.github.com/repos/TriliumNext/Notes/releases/latest | grep "tag_name" | awk '{print substr($2, 2, length($2)-3) }')
-
-msg_info "Installing TriliumNext"
-wget -q https://github.com/TriliumNext/Notes/releases/download/${RELEASE}/TriliumNextNotes-${RELEASE}-server-linux-x64.tar.xz
-tar -xf TriliumNextNotes-${RELEASE}-server-linux-x64.tar.xz
+wget -q https://github.com/TriliumNext/Notes/releases/download/${RELEASE}/TriliumNextNotes-linux-x64-${RELEASE}.tar.xz
+tar -xf TriliumNextNotes-linux-x64-${RELEASE}.tar.xz
 mv trilium-linux-x64-server /opt/trilium
-msg_ok "Installed TriliumNext"
+echo "${RELEASE}" >"/opt/${APPLICATION}_version.txt"
+msg_ok "Setup TriliumNext"
 
 msg_info "Creating Service"
-service_path="/etc/systemd/system/trilium.service"
-
-echo "[Unit]
+cat <<EOF >/etc/systemd/system/trilium.service
+[Unit]
 Description=Trilium Daemon
 After=syslog.target network.target
 
@@ -43,7 +44,8 @@ TimeoutStopSec=20
 Restart=always
 
 [Install]
-WantedBy=multi-user.target" >$service_path
+WantedBy=multi-user.target
+EOF
 systemctl enable --now -q trilium
 msg_ok "Created Service"
 
@@ -51,7 +53,7 @@ motd_ssh
 customize
 
 msg_info "Cleaning up"
+rm -rf /opt/TriliumNextNotes-linux-x64-${RELEASE}.tar.xz
 $STD apt-get -y autoremove
 $STD apt-get -y autoclean
-rm -rf TriliumNextNotes-${RELEASE}-server-linux-x64.tar.xz
 msg_ok "Cleaned"

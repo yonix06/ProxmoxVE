@@ -2,7 +2,7 @@
     "name": "Umami",
     "slug": "umami",
     "categories": [
-        7
+        9
     ],
     "date_created": "2024-05-09",
     "type": "ct",
@@ -11,7 +11,7 @@
     "interface_port": 3000,
     "documentation": null,
     "website": "https://umami.is/",
-    "logo": "https://raw.githubusercontent.com/umami-software/umami/master/public/android-chrome-512x512.png",
+    "logo": "https://raw.githubusercontent.com/selfhst/icons/refs/heads/main/svg/umami.svg",
     "description": "Umami makes it easy to collect, analyze, and understand your web data while maintaining visitor privacy and data ownership.",
     "install_methods": [
         {
@@ -33,7 +33,7 @@
     "notes": [
         {
             "text": "To view the database credentials : `cat umami.creds`",
-            "type": "warning"
+            "type": "info"
         }
     ]
 }

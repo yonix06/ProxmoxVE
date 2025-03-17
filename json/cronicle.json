@@ -2,7 +2,7 @@
     "name": "Cronicle Primary",
     "slug": "cronicle",
     "categories": [
-        11
+        19
     ],
     "date_created": "2024-05-02",
     "type": "ct",
@@ -32,12 +32,8 @@
     },
     "notes": [
         {
-            "text": "Primary and Worker Private Keys Must Match.",
-            "type": "warning"
-        },
-        {
-            "text": "Configuration Path: `/opt/cronicle/conf/config.json`",
-            "type": "warning"
+            "text": "Configuration Path: `/opt/cronicle/conf/config.json` (Primary and Worker Private Keys Must Match)",
+            "type": "info"
         }
     ]
 }

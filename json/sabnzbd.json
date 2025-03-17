@@ -2,7 +2,7 @@
     "name": "SABnzbd",
     "slug": "sabnzbd",
     "categories": [
-        16
+        11
     ],
     "date_created": "2024-05-02",
     "type": "ct",
@@ -19,7 +19,7 @@
             "script": "ct/sabnzbd.sh",
             "resources": {
                 "cpu": 2,
-                "ram": 2048,
+                "ram": 4096,
                 "hdd": 8,
                 "os": "debian",
                 "version": "12"

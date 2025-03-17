@@ -2,7 +2,7 @@
     "name": "Nginx Proxy Manager",
     "slug": "nginxproxymanager",
     "categories": [
-        11
+        21
     ],
     "date_created": "2024-05-02",
     "type": "ct",
@@ -33,6 +33,10 @@
     "notes": [
         {
             "text": "Since there are hundreds of Certbot instances, it's necessary to install the specific Certbot of your preference. Running `/app/scripts/install-certbot-plugins` within the nginxproxymanager LXC shell will install many additional plugins.",
+            "type": "warning"
+        },
+        {
+            "text": "WARNING: Installation sources scripts outside of Community Scripts repo. Please check the source before installing.",
             "type": "warning"
         }
     ]

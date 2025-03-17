@@ -2,7 +2,7 @@
     "name": "Mafl",
     "slug": "mafl",
     "categories": [
-        15
+        10
     ],
     "date_created": "2024-05-02",
     "type": "ct",
@@ -32,8 +32,8 @@
     },
     "notes": [
         {
-            "text": "Configuration Path: `/opt/mafl/data/config.yml`\r\n",
-            "type": "warning"
+            "text": "Configuration Path: `/opt/mafl/data/config.yml`",
+            "type": "info"
         }
     ]
 }

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2021-2024 tteck
+# Copyright (c) 2021-2025 tteck
 # Author: tteck (tteckster)
 # Co-Author: remz1337
-# License: MIT
-# https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
+# License: MIT | https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
+# Source: https://frigate.video/
 
 source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
 color
@@ -15,18 +15,18 @@ network_check
 update_os
 
 msg_info "Installing Dependencies (Patience)"
-$STD apt-get install -y {curl,sudo,mc,git,gpg,automake,build-essential,xz-utils,libtool,ccache,pkg-config,libgtk-3-dev,libavcodec-dev,libavformat-dev,libswscale-dev,libv4l-dev,libxvidcore-dev,libx264-dev,libjpeg-dev,libpng-dev,libtiff-dev,gfortran,openexr,libatlas-base-dev,libssl-dev,libtbb2,libtbb-dev,libdc1394-22-dev,libopenexr-dev,libgstreamer-plugins-base1.0-dev,libgstreamer1.0-dev,gcc,gfortran,libopenblas-dev,liblapack-dev,libusb-1.0-0-dev,jq,moreutils}
+$STD apt-get install -y {curl,sudo,mc,git,gpg,ca-certificates,automake,build-essential,xz-utils,libtool,ccache,pkg-config,libgtk-3-dev,libavcodec-dev,libavformat-dev,libswscale-dev,libv4l-dev,libxvidcore-dev,libx264-dev,libjpeg-dev,libpng-dev,libtiff-dev,gfortran,openexr,libatlas-base-dev,libssl-dev,libtbb2,libtbb-dev,libdc1394-22-dev,libopenexr-dev,libgstreamer-plugins-base1.0-dev,libgstreamer1.0-dev,gcc,gfortran,libopenblas-dev,liblapack-dev,libusb-1.0-0-dev,jq,moreutils}
 msg_ok "Installed Dependencies"
 
-msg_info "Installing Python3 Dependencies"
+msg_info "Setup Python3"
 $STD apt-get install -y {python3,python3-dev,python3-setuptools,python3-distutils,python3-pip}
 $STD pip install --upgrade pip
-msg_ok "Installed Python3 Dependencies"
+msg_ok "Setup Python3"
 
 msg_info "Installing Node.js"
 mkdir -p /etc/apt/keyrings
 curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
-echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" >/etc/apt/sources.list.d/nodesource.list
+echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_22.x nodistro main" >/etc/apt/sources.list.d/nodesource.list
 $STD apt-get update
 $STD apt-get install -y nodejs
 msg_ok "Installed Node.js"
@@ -48,13 +48,13 @@ if [[ "$CTTYPE" == "0" ]]; then
 fi
 msg_ok "Set Up Hardware Acceleration"
 
-RELEASE=$(curl -s https://api.github.com/repos/blakeblackshear/frigate/releases/latest | jq -r '.tag_name')
+#RELEASE=$(curl -s https://api.github.com/repos/blakeblackshear/frigate/releases/latest | jq -r '.tag_name')
 msg_ok "Stop spinner to prevent segmentation fault"
-msg_info "Installing Frigate $RELEASE (Perseverance)"
+msg_info "Installing Frigate v0.14.1 (Perseverance)"
 if [ -n "$SPINNER_PID" ] && ps -p $SPINNER_PID > /dev/null; then kill $SPINNER_PID > /dev/null; fi
 cd ~
 mkdir -p /opt/frigate/models
-wget -q https://github.com/blakeblackshear/frigate/archive/refs/tags/${RELEASE}.tar.gz -O frigate.tar.gz
+wget -q https://github.com/blakeblackshear/frigate/archive/refs/tags/v0.14.1.tar.gz -O frigate.tar.gz
 tar -xzf frigate.tar.gz -C /opt/frigate --strip-components 1
 rm -rf frigate.tar.gz
 cd /opt/frigate
@@ -102,10 +102,10 @@ else
   sed -i -e 's/^kvm:x:104:$/render:x:104:frigate/' -e 's/^render:x:105:$/kvm:x:105:/' /etc/group
 fi
 echo "tmpfs   /tmp/cache      tmpfs   defaults        0       0" >> /etc/fstab
-msg_ok "Installed Frigate $RELEASE"
+msg_ok "Installed Frigate"
 
-if grep -q -o -m1 -E 'avx[^ ]* | sse4_2' /proc/cpuinfo; then
-  msg_ok "AVX or SSE 4.2 Support Detected"
+if grep -q -o -m1 -E 'avx[^ ]*' /proc/cpuinfo; then
+  msg_ok "AVX Support Detected"
   msg_info "Installing Openvino Object Detection Model (Resilience)"
   $STD pip install -r /opt/frigate/docker/main/requirements-ov.txt
   cd /opt/frigate/models

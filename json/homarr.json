@@ -2,13 +2,13 @@
     "name": "Homarr",
     "slug": "homarr",
     "categories": [
-        18
+        10
     ],
-    "date_created": "2024-05-02",
+    "date_created": "2025-01-28",
     "type": "ct",
     "updateable": true,
     "privileged": false,
-    "interface_port": 3000,
+    "interface_port": 7575,
     "documentation": null,
     "website": "https://homarr.dev/",
     "logo": "https://raw.githubusercontent.com/loganmarchione/homelab-svg-assets/main/assets/homarr.svg",
@@ -19,7 +19,7 @@
             "script": "ct/homarr.sh",
             "resources": {
                 "cpu": 2,
-                "ram": 2048,
+                "ram": 4096,
                 "hdd": 8,
                 "os": "debian",
                 "version": "12"

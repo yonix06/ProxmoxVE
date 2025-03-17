@@ -2,7 +2,7 @@
     "name": "Pi.Alert",
     "slug": "pialert",
     "categories": [
-        7
+        4
     ],
     "date_created": "2024-05-02",
     "type": "ct",
@@ -30,5 +30,10 @@
         "username": null,
         "password": null
     },
-    "notes": []
+    "notes": [
+        {
+            "text": "WARNING: Installation sources scripts outside of Community Scripts repo. Please check the source before installing.",
+            "type": "warning"
+        }
+    ]
 }

@@ -2,7 +2,7 @@
     "name": "Headscale",
     "slug": "headscale",
     "categories": [
-        11
+        4
     ],
     "date_created": "2024-05-13",
     "type": "ct",
@@ -33,7 +33,7 @@
     "notes": [
         {
             "text": "Configuration settings: `/etc/headscale/config.yaml`",
-            "type": "warning"
+            "type": "info"
         }
     ]
 }
